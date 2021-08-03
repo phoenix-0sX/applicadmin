@@ -48,9 +48,9 @@ class _State extends State<Login> {
         home: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(0.0),
-          child: Container(
+          child: Container(/* 
             width: double.infinity,
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height, */
             alignment: Alignment.center,
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -59,203 +59,200 @@ class _State extends State<Login> {
                 //alignment: Alignment.topCenter,
               ),
             ),
-            child: AspectRatio(
-              aspectRatio: 9 / 14,
-              child: ListView(
-                children: <Widget>[
-                  Card(
-                    elevation: 0.0,
-                    color: Colors.transparent,
-                    child: Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: Container(
+            child: ListView(
+              children: <Widget>[
+                Card(
+                  elevation: 0.0,
+                  color: Colors.transparent,
+                  child: Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.only(top: 30.0),
+                            child: Text(
+                              'BIENVENUE !',
+                              style: TextStyle(
+                                color: Colors.black45,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20.0,
+                                letterSpacing: 2.0,
+                              ),
+                            )
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Admin',
+                              style: TextStyle(
+                                color: Colors.deepOrange,
+                                fontSize: 15.0,
+                                letterSpacing: 2.0,
+                              ),
+                            )
+                          ),
+                          SizedBox(height: 10.0,),
+                          Container(
+                            child: CircleAvatar(
+                              backgroundImage: AssetImage('assets/images/person.png'),
+                              backgroundColor: Colors.transparent,
+                              maxRadius: 35.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  color: Colors.white.withOpacity(0.0),
+                  //color: Colors.transparent,
+                  elevation: 0.0,
+                  child: 
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Form(
+                        key: _formKey,
                         child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
                             Container(
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.only(top: 30.0),
-                              child: Text(
-                                'BIENVENUE !',
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20.0,
-                                  letterSpacing: 2.0,
+                              padding: EdgeInsets.all(5.0),
+                              height: 40.0,
+                              child: TextFormField(
+                                controller: loginController,
+                                focusNode: myFocusNode,
+                                decoration: InputDecoration(
+                                  icon: Icon(
+                                    Icons.email_outlined,
+                                    color: Colors.grey[500],
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.teal.shade300, width: 2.0),
+                                  ),
+                                  labelText: 'Gmail',
+                                  labelStyle: TextStyle(
+                                    fontSize: 12.0,/* 
+                                    color: myFocusNode.hasFocus ? Colors.blue : Colors.teal.shade300, */
+                                  ),
                                 ),
-                              )
-                            ),
-                            Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Admin',
-                                style: TextStyle(
-                                  color: Colors.deepOrange,
-                                  fontSize: 15.0,
-                                  letterSpacing: 2.0,
-                                ),
-                              )
-                            ),
-                            SizedBox(height: 10.0,),
-                            Container(
-                              child: CircleAvatar(
-                                backgroundImage: AssetImage('assets/images/person.png'),
-                                backgroundColor: Colors.transparent,
-                                maxRadius: 35.0,
+                                validator: (loginController) {
+                                  if (loginController == null || loginController.isEmpty) {
+                                    return 'Veuillez remplir votre email';
+                                  }
+                                  email = loginController;
+                                  return null;
+                                },
                               ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(5.0),
+                              height: 40.0,
+                              child: TextFormField(
+                                obscureText: true,
+                                controller: motDePasseController,
+                                focusNode: myFocusNode1,
+                                decoration: InputDecoration(
+                                  icon: Icon(
+                                    Icons.credit_card_sharp,
+                                    color: Colors.grey[500],
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.teal.shade300, width: 2.0),
+                                  ),
+                                  labelText: 'Mot de passe',
+                                  labelStyle: TextStyle(
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                                validator: (motDePasseController) {
+                                  if (motDePasseController == null || motDePasseController.isEmpty) {
+                                    return 'Veuillez entrer votre mot de passe';
+                                  }
+                                  password = motDePasseController;
+                                  return null;
+                                },
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(5),
+                              height: 40.0,
+                              child: ElevatedButton.icon(
+                                label: Text(_isLoading? 'En attente...' : 'Se Connecter',
+                                          textDirection: TextDirection.ltr,
+                                        ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.teal[300],
+                                ),
+                                onPressed: () {
+                                  //Navigator.pushNamed(context, '/home');
+                                  if (_formKey.currentState!.validate()) {
+                                    _login();
+                                  }
+                                },
+                                icon: Icon(
+                                  Icons.login_outlined,
+                                ),
+                              )
                             ),
                           ],
                         ),
                       ),
                     ),
-                  ),
-                  Card(
-                    color: Colors.white.withOpacity(0.0),
-                    //color: Colors.transparent,
-                    elevation: 0.0,
-                    child: 
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.all(5.0),
-                                height: 40.0,
-                                child: TextFormField(
-                                  controller: loginController,
-                                  focusNode: myFocusNode,
-                                  decoration: InputDecoration(
-                                    icon: Icon(
-                                      Icons.email_outlined,
-                                      color: Colors.grey[500],
-                                    ),
-                                    border: OutlineInputBorder(),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.teal.shade300, width: 2.0),
-                                    ),
-                                    labelText: 'Gmail',
-                                    labelStyle: TextStyle(
-                                      fontSize: 12.0,/* 
-                                      color: myFocusNode.hasFocus ? Colors.blue : Colors.teal.shade300, */
-                                    ),
-                                  ),
-                                  validator: (loginController) {
-                                    if (loginController == null || loginController.isEmpty) {
-                                      return 'Veuillez remplir votre email';
-                                    }
-                                    email = loginController;
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(5.0),
-                                height: 40.0,
-                                child: TextFormField(
-                                  obscureText: true,
-                                  controller: motDePasseController,
-                                  focusNode: myFocusNode1,
-                                  decoration: InputDecoration(
-                                    icon: Icon(
-                                      Icons.credit_card_sharp,
-                                      color: Colors.grey[500],
-                                    ),
-                                    border: OutlineInputBorder(),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.teal.shade300, width: 2.0),
-                                    ),
-                                    labelText: 'Mot de passe',
-                                    labelStyle: TextStyle(
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
-                                  validator: (motDePasseController) {
-                                    if (motDePasseController == null || motDePasseController.isEmpty) {
-                                      return 'Veuillez entrer votre mot de passe';
-                                    }
-                                    password = motDePasseController;
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(5),
-                                height: 40.0,
-                                child: ElevatedButton.icon(
-                                  label: Text(_isLoading? 'En attente...' : 'Se Connecter',
-                                            textDirection: TextDirection.ltr,
-                                          ),
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Colors.teal[300],
-                                  ),
-                                  onPressed: () {
-                                    //Navigator.pushNamed(context, '/home');
-                                    if (_formKey.currentState!.validate()) {
-                                      _login();
-                                    }
-                                  },
-                                  icon: Icon(
-                                    Icons.login_outlined,
-                                  ),
-                                )
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                  ),
-                  Container(
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 5,
-                          child: TextButton(
-                            onPressed: (){
-                              //forgot password screen
-                            },
-                            child: Text(
-                              'Mot de passe oublier ?',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color : Colors.black87,
-                                letterSpacing: 1.0,
-                                fontSize: 10.0,
-                              ),
+                ),
+                Container(
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 5,
+                        child: TextButton(
+                          onPressed: (){
+                            //forgot password screen
+                          },
+                          child: Text(
+                            'Mot de passe oublier ?',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color : Colors.black87,
+                              letterSpacing: 1.0,
+                              fontSize: 10.0,
                             ),
-                          )
-                        ),
-                        Expanded(
-                          flex: 6,
-                          child: SizedBox (width: 10.0,),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: TextButton(
-                            child: Text(
-                              'Sign Up ?',
-                              style: TextStyle(
-                                letterSpacing: 1.0,
-                                fontSize: 13.0,
-                                color: Colors.teal.shade400,
-                              ),
-                            ),
-                            onPressed: () {
-                              //signup screen
-                              Navigator.push(
-                                  context,
-                                  new MaterialPageRoute(
-                                      builder: (context) => Register()));
-                            },
                           ),
                         )
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    )
+                      ),
+                      Expanded(
+                        flex: 6,
+                        child: SizedBox (width: 10.0,),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: TextButton(
+                          child: Text(
+                            'Sign Up ?',
+                            style: TextStyle(
+                              letterSpacing: 1.0,
+                              fontSize: 13.0,
+                              color: Colors.teal.shade400,
+                            ),
+                          ),
+                          onPressed: () {
+                            //signup screen
+                            Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) => Register()));
+                          },
+                        ),
+                      )
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   )
-                ],
-              ),
+                )
+              ],
             ),
           ),
         )
