@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'USER AUTH',
+      //title: 'USER AUTH',
       debugShowCheckedModeBanner: false,
       home: CheckAuth(),
     );
@@ -31,7 +31,7 @@ class _CheckAuthState extends State<CheckAuth> {
 
   void _checkIfLoggedIn() async{
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var token = localStorage.getString('token');
+    var token = localStorage.getString('api_token');
     if(token != null){
       setState(() {
         isAuth = true;
@@ -48,7 +48,9 @@ class _CheckAuthState extends State<CheckAuth> {
       child = Login();
     }
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: child,
     );
+    //return child;
   }
 }
